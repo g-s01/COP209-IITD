@@ -8,14 +8,17 @@
 
 void* IpcPipe() {
     InitPipe();
+    return NULL;
 }
 
 void* IpcFIFO() {
     InitFifo();
+    return NULL;
 }
 
 void* IpcMessageQueue() {
     InitMessageQueue();
+    return NULL;
 }
 
 int main() {

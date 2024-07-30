@@ -1,9 +1,24 @@
-if [ -d "build" ]; then
-    rm -r build
-fi
+checkBuild() {
+    if [ -d "build" ]; then
+        rm -r build
+    fi
+}
 
-mkdir build
-cd build
-cmake ..
-cmake --build .
-./Assignment1
+makeBuild() {
+    mkdir build
+    cd build
+    cmake ..
+    cmake --build .
+}
+
+runBuild() {
+    ./Assignment1
+}
+
+main() {
+    checkBuild
+    makeBuild
+    runBuild
+}
+
+main
