@@ -1,0 +1,6 @@
+*/build
+*.out
+*.o
+*.d
+*.dSYM
+*.log
