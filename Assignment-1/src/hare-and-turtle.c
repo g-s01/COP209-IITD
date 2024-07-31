@@ -5,6 +5,7 @@
 #include "ipc/pipe.c"
 #include "ipc/fifo.c"
 #include "ipc/message-queue.c"
+#include "common.h"
 
 void* IpcPipe() {
     InitPipe();

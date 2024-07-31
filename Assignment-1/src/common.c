@@ -4,6 +4,13 @@
 #include <time.h>
 #include "common.h"
 
+// Definition of global variables
+long int finish = 0;
+long int HareRunLikeCrazyConstant = 0;
+long int ChangeTurlePositionConstant = 0;
+long int HareSleepConstant = 0;
+long int HareRunForAWhileDurationConstant = 0;
+
 void setConstants() {
     HareRunLikeCrazyConstant = 100;
     ChangeTurlePositionConstant = 1;
