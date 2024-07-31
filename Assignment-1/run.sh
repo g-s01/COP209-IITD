@@ -1,5 +1,9 @@
 parent_dir=$(dirname "$(pwd)")
 
+if [[ "$(basename "$PWD")" == "Assignment-1" ]]; then
+    parent_dir=$(pwd)
+fi
+
 checkBuild() {
     if [ -d "build" ]; then
         rm -r build

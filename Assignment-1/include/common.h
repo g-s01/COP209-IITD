@@ -9,15 +9,15 @@ struct Turtle {
     long int position;
 };
 
-long int finish;
+extern long int finish;
 
 /*
     constants
 */
-long int HareRunLikeCrazyConstant;
-long int ChangeTurlePositionConstant;
-long int HareSleepConstant;
-long int HareRunForAWhileDurationConstant;
+extern long int HareRunLikeCrazyConstant;
+extern long int ChangeTurlePositionConstant;
+extern long int HareSleepConstant;
+extern long int HareRunForAWhileDurationConstant;
 
 /*
     Turtle functions
