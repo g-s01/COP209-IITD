@@ -1,3 +1,5 @@
+parent_dir=$(dirname "$(pwd)")
+
 checkBuild() {
     if [ -d "build" ]; then
         rm -r build
@@ -7,7 +9,7 @@ checkBuild() {
 makeBuild() {
     mkdir build
     cd build
-    cmake ..
+    cmake $parent_dir
     cmake --build .
 }
 

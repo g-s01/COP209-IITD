@@ -1,53 +1,74 @@
 #!/bin/bash
 
-# Path to the functions file and shunit2 library
-FUNCTIONS_FILE="../run.sh"
-SHUNIT2_PATH="../../shunit2"
+# Set base directories based on the current script's location
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+project_root="$(cd "$script_dir/.." && pwd)"
 
-# Source the functions and shunit2 library
-. "$FUNCTIONS_FILE"
-. "$SHUNIT2_PATH"
+# Paths to the necessary files
+FUNCTIONS_FILE="${project_root}/run.sh"
+SHUNIT2_PATH="${project_root}/../external-libraries/shunit2/shunit2"
+
+# Debugging: Print current directory and paths
+echo "Current directory: $(pwd)"
+echo "Script directory: $script_dir"
+echo "Project root: $project_root"
+echo "Functions file path: $FUNCTIONS_FILE"
+echo "shunit2 path: $SHUNIT2_PATH"
+
+# Source the functions file
+if [ -f "$FUNCTIONS_FILE" ]; then
+    . "$FUNCTIONS_FILE"
+    echo "Functions file sourced."
+else
+    echo "Functions file not found!"
+    exit 1
+fi
 
 # Test setup
 setUp() {
-    # Create a temporary directory for testing
+    echo "Setting up test environment"
     TEST_DIR=$(mktemp -d)
     cd "$TEST_DIR"
 }
 
 # Test teardown
 tearDown() {
-    # Cleanup the temporary directory
+    echo "Tearing down test environment"
     cd ..
     rm -rf "$TEST_DIR"
 }
 
 # Test functions
 testCheckBuild() {
-    # Test checkBuild function
+    echo "Running testCheckBuild"
     mkdir build
     checkBuild
     assertFalse "Directory build should not exist" "[ -d build ]"
 }
 
 testMakeBuild() {
-    # Test makeBuild function
+    echo "Running testMakeBuild"
     makeBuild
-    assertTrue "Directory build should exist" "[ -d build ]"
-    cd build
-    assertTrue "CMake build should produce a Makefile" "[ -f CMakeLists.txt ]"
+    assertTrue "CMake build should produce a Makefile" "[ -f Makefile ]"
     cd ..
+    assertTrue "Directory build should exist" "[ -d build ]"
 }
 
 testRunBuild() {
-    # Mock runBuild function
-    # This is a bit tricky because it runs a binary that might not exist.
-    # Ideally, you'd mock the `runBuild` function or create a test binary.
-
-    # For now, we are assuming runBuild will run successfully without errors.
-    runBuild
-    assertTrue "runBuild should execute without error" "[ $? -eq 0 ]"
+    echo "Running testRunBuild"
+    main
+    assertTrue "main/runBuild should execute without error" "[ $? -eq 0 ]"
 }
 
-# Run tests
-. "$SHUNIT2_PATH"
+cd ..
+
+# Source shunit2 and run tests
+if [ -f "$SHUNIT2_PATH" ]; then
+    . "$SHUNIT2_PATH"
+    echo "shunit2 library sourced."
+else
+    echo "shunit2 library not found!"
+    exit 1
+fi
+
+rm -rf ${script_dir}/build
